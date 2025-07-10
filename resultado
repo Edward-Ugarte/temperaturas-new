@@ -1,0 +1,105 @@
+versión de Gretl 2025b
+Sesión actual: 2025-07-10 01:04
+
+? clear
+? open "
+
+Modelo 1: MCO, usando las observaciones 2-30 (n = 29)
+Variable dependiente: temp_max
+
+               coeficiente   Desv. típica   Estadístico t   valor p
+  -----------------------------------------------------------------
+  const         11.9844        4.74121          2.528       0.0179  **
+  temp_max_1     0.587156      0.157747         3.722       0.0010  ***
+  temp_min_1    −0.329358      0.323713        −1.017       0.3183 
+
+Media de la vble. dep.  23.89655   D.T. de la vble. dep.   0.976321
+Suma de cuad. residuos  15.67156   D.T. de la regresión    0.776371
+R-cuadrado              0.412823   R-cuadrado corregido    0.367655
+F(2, 26)                9.139821   Valor p (de F)          0.000986
+Log-verosimilitud      −32.22522   Criterio de Akaike      70.45044
+Criterio de Schwarz     74.55232   Crit. de Hannan-Quinn   71.73510
+
+? matrix b_max 
+Se ha generado la matriz b_max
+? ols temp_min const temp_max_1 temp_min_1
+
+Modelo 2: MCO, usando las observaciones 2-30 (n = 29)
+Variable dependiente: temp_min
+
+               coeficiente   Desv. típica   Estadístico t   valor p
+  -----------------------------------------------------------------
+  const         3.86927       2.84310          1.361        0.1852 
+  temp_max_1    0.0688073     0.0945945        0.7274       0.4735 
+  temp_min_1    0.121560      0.194117         0.6262       0.5366 
+
+Media de la vble. dep.  6.275862   D.T. de la vble. dep.   0.454859
+Suma de cuad. residuos  5.635321   D.T. de la regresión    0.465557
+R-cuadrado              0.027236   R-cuadrado corregido   -0.047592
+F(2, 26)                0.363985   Valor p (de F)          0.698387
+Log-verosimilitud      −17.39471   Criterio de Akaike      40.78943
+Criterio de Schwarz     44.89131   Crit. de Hannan-Quinn   42.07409
+
+? matrix b_min = $coeff
+Se ha generado la matriz b_min
+? ols temp_media const temp_max_1 temp_min_1
+
+Modelo 3: MCO, usando las observaciones 2-30 (n = 29)
+Variable dependiente: temp_media
+
+               coeficiente   Desv. típica   Estadístico t   valor p
+  -----------------------------------------------------------------
+  const          7.92683      2.21510           3.579       0.0014  ***
+  temp_max_1     0.327982     0.0737000         4.450       0.0001  ***
+  temp_min_1    −0.103899     0.151240         −0.6870      0.4982 
+
+Media de la vble. dep.  15.08621   D.T. de la vble. dep.   0.483088
+Suma de cuad. residuos  3.420757   D.T. de la regresión    0.362722
+R-cuadrado              0.476507   R-cuadrado corregido    0.436238
+F(2, 26)                11.83318   Valor p (de F)          0.000222
+Log-verosimilitud      −10.15642   Criterio de Akaike      26.31285
+Criterio de Schwarz     30.41474   Crit. de Hannan-Quinn   27.59751
+
+? matrix b_med = $coeff
+Se ha generado la matriz b_med
+# 🔁 Proyectamos encadenadamente desde obs. 31 a 61
+? smpl 31 61
+Rango de datos completo: 1 - 61 (n = 61)
+Muestra actual: 31 - 61 (n = 31)
+
+
+> endloop
+# 📋 Mostrar proyecciones térmicas
+?  temp_max temp_min temp_media
+
+temp_max:
+Muestra actual:  31 - 61 (n = 31)
+
+24.6872  24.3985  24.2233  24.1263  24.0740  24.0461  24.0312  24.0233  
+24.0191  24.0168  24.0156  24.0150  24.0147  24.0145  24.0144  24.0143  
+24.0143  24.0143  24.0143  24.0143  24.0143  24.0143  24.0143  24.0143  
+24.0143  24.0143  24.0143  24.0143  24.0143  24.0143  24.0143  
+
+temp_min:
+Muestra actual:  31 - 61 (n = 31)
+
+6.31881  6.33604  6.31827  6.30405  6.29565  6.29103  6.28855  6.28722  
+6.28652  6.28614  6.28594  6.28584  6.28578  6.28575  6.28573  6.28572  
+6.28572  6.28572  6.28572  6.28572  6.28571  6.28571  6.28571  6.28571  
+6.28571  6.28571  6.28571  6.28571  6.28571  6.28571  6.28571  
+
+temp_media:
+Muestra actual:  31 - 61 (n = 31)
+
+15.5030  15.3673  15.2708  15.2152  15.1848  15.1686  15.1599  15.1553  
+15.1528  15.1515  15.1508  15.1504  15.1502  15.1501  15.1501  15.1500  
+15.1500  15.1500  15.1500  15.1500  15.1500  15.1500  15.1500  15.1500  
+15.1500  15.1500  15.1500  15.1500  15.1500  15.1500  15.1500  
+
+# 💾 Guardar la base final como .gdt
+? smpl full
+Rango de datos completo: 1 - 61 (n = 61)
+
+? store ".gdt"
+
+
